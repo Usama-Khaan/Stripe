@@ -1,0 +1,19 @@
+current directory: /home/usama-khan/www/sites/stripe/vendor/bundle/ruby/3.2.0/gems/debug-1.9.2/ext/debug
+/home/usama-khan/.rvm/rubies/ruby-3.2.3/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /home/usama-khan/www/sites/stripe/vendor/bundle/ruby/3.2.0/gems/debug-1.9.2/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20240925-89265-qzyqzb sitelibdir\=./.gem.20240925-89265-qzyqzb clean
+
+current directory: /home/usama-khan/www/sites/stripe/vendor/bundle/ruby/3.2.0/gems/debug-1.9.2/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20240925-89265-qzyqzb sitelibdir\=./.gem.20240925-89265-qzyqzb
+compiling debug.c
+compiling iseq_collector.c
+linking shared-object debug/debug.so
+
+current directory: /home/usama-khan/www/sites/stripe/vendor/bundle/ruby/3.2.0/gems/debug-1.9.2/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20240925-89265-qzyqzb sitelibdir\=./.gem.20240925-89265-qzyqzb install
+/usr/bin/install -m 0755 debug.so ./.gem.20240925-89265-qzyqzb/debug
+
+current directory: /home/usama-khan/www/sites/stripe/vendor/bundle/ruby/3.2.0/gems/debug-1.9.2/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20240925-89265-qzyqzb sitelibdir\=./.gem.20240925-89265-qzyqzb clean

@@ -1,0 +1,22 @@
+current directory: /home/usama-khan/www/sites/stripe/vendor/bundle/ruby/3.2.0/gems/bootsnap-1.18.4/ext/bootsnap
+/home/usama-khan/.rvm/rubies/ruby-3.2.3/bin/ruby extconf.rb
+checking for fdatasync() in unistd.h... yes
+checking for whether -D_GNU_SOURCE is accepted as CPPFLAGS... yes
+checking for whether -O3 is accepted as CFLAGS... yes
+checking for whether -std=c99 is accepted as CFLAGS... yes
+creating Makefile
+
+current directory: /home/usama-khan/www/sites/stripe/vendor/bundle/ruby/3.2.0/gems/bootsnap-1.18.4/ext/bootsnap
+make DESTDIR\= sitearchdir\=./.gem.20240925-89265-9jdmvb sitelibdir\=./.gem.20240925-89265-9jdmvb clean
+
+current directory: /home/usama-khan/www/sites/stripe/vendor/bundle/ruby/3.2.0/gems/bootsnap-1.18.4/ext/bootsnap
+make DESTDIR\= sitearchdir\=./.gem.20240925-89265-9jdmvb sitelibdir\=./.gem.20240925-89265-9jdmvb
+compiling bootsnap.c
+linking shared-object bootsnap/bootsnap.so
+
+current directory: /home/usama-khan/www/sites/stripe/vendor/bundle/ruby/3.2.0/gems/bootsnap-1.18.4/ext/bootsnap
+make DESTDIR\= sitearchdir\=./.gem.20240925-89265-9jdmvb sitelibdir\=./.gem.20240925-89265-9jdmvb install
+/usr/bin/install -m 0755 bootsnap.so ./.gem.20240925-89265-9jdmvb/bootsnap
+
+current directory: /home/usama-khan/www/sites/stripe/vendor/bundle/ruby/3.2.0/gems/bootsnap-1.18.4/ext/bootsnap
+make DESTDIR\= sitearchdir\=./.gem.20240925-89265-9jdmvb sitelibdir\=./.gem.20240925-89265-9jdmvb clean
