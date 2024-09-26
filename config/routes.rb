@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  get "up" => "rails/health#show", as: :rails_health_check
+  root "books#index"
 
-  resources :charges, only: %i[new create]
-  root "charges#new"
+  resources :books do
+    resources :charges, only: %i[new create]
+  end
 end
