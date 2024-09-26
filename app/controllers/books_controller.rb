@@ -39,6 +39,7 @@ class BooksController < ApplicationController
   def update
     respond_to do |format|
       if @book.update(book_params)
+        update_stripe_price(@book)  # Update the price on Stripe when the book is updated
         format.html { redirect_to @book, notice: "Book was successfully updated." }
         format.json { render :show, status: :ok, location: @book }
       else
@@ -50,6 +51,8 @@ class BooksController < ApplicationController
 
   # DELETE /books/1 or /books/1.json
   def destroy
+    Stripe::Product.update(@book.stripe_product_id, { active: false })
+
     @book.destroy!
 
     respond_to do |format|
@@ -59,12 +62,10 @@ class BooksController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_book
       @book = Book.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def book_params
       params.require(:book).permit(:title, :author, :price, :description)
     end
@@ -75,11 +76,30 @@ class BooksController < ApplicationController
         description: book.description
       })
 
-      # Create a price for the product
       Stripe::Price.create({
         unit_amount: (book.price * 100).to_i,
         currency: 'usd',
         product: product.id
+      })
+
+      book.update(stripe_product_id: product.id)
+    rescue Stripe::StripeError => e
+      flash[:alert] = "Stripe error: #{e.message}"
+    end
+
+    def update_stripe_price(book)
+      return unless book.stripe_product_id
+
+      prices = Stripe::Price.list(product: book.stripe_product_id, active: true)
+
+      prices.data.each do |price|
+        Stripe::Price.update(price.id, { active: false })
+      end
+
+      Stripe::Price.create({
+        unit_amount: (book.price * 100).to_i,
+        currency: 'usd',
+        product: book.stripe_product_id
       })
     rescue Stripe::StripeError => e
       flash[:alert] = "Stripe error: #{e.message}"
