@@ -1,0 +1,69 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-lg border-0 rounded-lg">
+        <div class="card-header text-center bg-primary text-white rounded-top">
+          <h4 class="mb-0">Complete Your Payment</h4>
+          <p class="mb-0"><small>Secure Payment with Stripe</small></p>
+        </div>
+
+        <%= form_with url: book_charges_path, method: :post, local: true, id: 'payment-form', class: 'p-4' do |f| %>
+          <div class="card-body">
+            <!-- Amount Field -->
+            <div class="form-group mb-3">
+              <label for="amount" class="form-label">Amount ($)</label>
+              <%= f.number_field :amount, class: 'form-control shadow-sm', id: 'amount', 
+                                 min: 0, placeholder: 'Enter amount in $', 
+                                 value: @book.price, readonly: true %>
+            </div>
+
+            <!-- Credit Card Field -->
+            <div class="form-group mb-3">
+              <label for="card-element" class="form-label">Credit Card</label>
+              <div id="card-element" class="form-control shadow-sm"></div>
+              <div id="card-errors" role="alert" class="text-danger mt-2"></div>
+            </div>
+          </div>
+
+          <!-- Card Footer -->
+          <div class="card-footer d-flex justify-content-between align-items-center bg-light">
+            <%= link_to root_path, class: 'btn btn-outline-danger btn-sm' do %>
+              <i class="mdi mdi-lock-reset"></i> Clear
+            <% end %>
+
+            <%= f.submit 'Continue', class: 'btn btn-success btn-sm' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+  var stripe = Stripe('<%= Rails.application.credentials.stripe[:publishable_key] %>');
+  var elements = stripe.elements();
+
+  var cardElement = elements.create('card');
+  cardElement.mount('#card-element');
+
+  var form = document.getElementById('payment-form');
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    stripe.createToken(cardElement).then(function(result) {
+      if (result.error) {
+        var errorElement = document.getElementById('card-errors');
+        errorElement.textContent = result.error.message;
+      } else {
+        var hiddenInput = document.createElement('input');
+        hiddenInput.setAttribute('type', 'hidden');
+        hiddenInput.setAttribute('name', 'stripeToken');
+        hiddenInput.setAttribute('value', result.token.id);
+        form.appendChild(hiddenInput);
+
+        form.submit();
+      }
+    });
+  });
+</script>

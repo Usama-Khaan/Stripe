@@ -1,0 +1,43 @@
+<div class="container mt-4">
+  <% if flash[:notice] %>
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <%= flash[:notice] %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  <% end %>
+
+  <% if flash[:alert] %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <%= flash[:alert] %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% end %>
+</div>
+
+<div class="container">
+  <div class="books-header mb-4">
+    <h1>Books</h1>
+    <%= link_to "New book", new_book_path, class: 'btn btn-success' %>
+  </div>
+
+  <div class="row">
+    <% @books.each do |book| %>
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-sm">
+          <div class="card-header bg-success text-white text-center">
+            <h5 class="mb-0"><%= book.title %></h5>
+            <p class="small"><%= book.author %></p>
+          </div>
+          <div class="card-body">
+            <p class="card-text"><%= truncate(book.description, length: 100) %></p>
+            <p class="font-weight-bold text-success">$<%= book.price %></p>
+          </div>
+          <div class="card-footer text-center">
+            <%= link_to "Show this book", book, class: 'btn btn-info btn-sm' %>
+            <%= link_to "Buy Now", new_book_charge_path(book_id: book.id), class: 'btn btn-warning btn-sm' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
